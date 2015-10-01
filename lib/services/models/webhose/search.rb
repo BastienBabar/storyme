@@ -5,16 +5,8 @@ module Services
         attr_reader :result
         class Item < Struct.new(:id, :url, :ord_in_thread, :title, :text); end
 
-        def initialize(args = {})
-          @result = create(args)
-        end
-
-        private
-        def create(args)
-          (args || []).map do |item|
-            Item.new(item['uuid'], item['url'], item['ord_in_thread'],
-                     item['title'], item['text'])
-          end
+        def initialize(args)
+          @result = Item.new(args['uuid'], args['url'], args['ord_in_thread'].to_i, args['title'], args['text'])
         end
       end
     end

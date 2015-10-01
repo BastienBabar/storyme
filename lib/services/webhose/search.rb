@@ -10,8 +10,8 @@ module Services
       end
 
       def get
-        response  = HTTParty.get(base_uri, set_headers)
-        Services::Responses::Webhose::Search.new(response['posts']).models
+        response  = HTTParty.get(base_uri)
+        Services::Responses::Webhose::Search.new(response).models
       end
 
       private
@@ -26,7 +26,7 @@ module Services
             format: 'json',
             q: 'obama', #request.query
             site_type: 'news', #request.type
-            performance_score: '>5', #request.perf_score
+            performance_score: '5', #request.perf_score
         }.to_query
       end
     end

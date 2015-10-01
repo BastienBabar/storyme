@@ -12,7 +12,13 @@ module Services
         end
 
         def extract_models
-          Services::Models::Webhose::Search.new(response)
+          (parsed_response['posts'] || []).map do |post|
+            Services::Models::Webhose::Search.new(post)
+          end
+        end
+
+        def parsed_response
+          JSON.parse response unless response.nil?
         end
       end
     end
