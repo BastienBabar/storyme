@@ -5,11 +5,11 @@ describe Services::Webhose::Search do
   let(:service) { Services::Webhose::Search.new(request) }
   let(:query_params) do
     {
-        token: '0a8b5e5c-5654-4f2e-9beb-bcd9ccabb19d', #ENV['token_webhose']
+        token: ENV['TOKEN_WEBHOSE'],
         format: 'json',
-        q: 'obama', #request.query
-        site_type: 'news', #request.type
-        performance_score: '5', #request.perf_score
+        q: 'obama',
+        site_type: 'news',
+        performance_score: '5'
     }
   end
   let(:response) { webhose_search_response }
