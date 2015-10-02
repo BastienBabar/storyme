@@ -3,27 +3,22 @@ require 'services/webhose/search'
 
 describe Services::Webhose::Search do
   let(:service) { Services::Webhose::Search.new(request) }
-  let(:query_params) do
-    {
-        token: ENV['TOKEN_WEBHOSE'],
-        format: 'json',
-        q: 'obama',
-        site_type: 'news',
-        performance_score: '5'
-    }
-  end
-  let(:response) { webhose_search_response }
-  let(:base_url) { 'https://webhose.io/search?' }
   let(:subject) { service.get }
-  before do
-    allow(HTTParty).to receive(:get).and_return(response)
-  end
 
   describe '#get' do
     let(:request) { Services::Requests::Webhose::Search.new('obama', 'news', '5') }
+    let(:base_url) { 'https://webhose.io/search?' }
+    let(:request_params) { { format: 'json',  performance_score: request.perf_score, site_type: request.type, q: request.query, token: ENV['TOKEN_WEBHOSE'] } }
+
+    let(:args)  { { skilldid: '1234', confidence: '1', normalized_term: 'Front end developer' } }
+    let(:response) { double(body: webhose_search_response, models: mock_webhose_search_response) }
+
+    before do
+      allow(Services::Responses::Webhose::Search).to receive(:new).and_return(response)
+    end
 
     context do
-      it 'creates an array of Search model' do
+      it 'creates an array of Webhose::Search model' do
         expect(subject).to be_an Array
 
         subject.each do |response|
@@ -34,7 +29,7 @@ describe Services::Webhose::Search do
       after { subject }
 
       it 'calls the GET url with a query'  do
-        uri = base_url + query_params.to_query
+        uri = base_url + request_params.to_query
         expect(HTTParty).to receive(:get).with(uri)
       end
     end

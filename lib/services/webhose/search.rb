@@ -1,4 +1,5 @@
 require 'services/responses/webhose/search'
+require 'httparty'
 
 module Services
   module Webhose

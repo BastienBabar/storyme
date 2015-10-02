@@ -19,3 +19,10 @@ def webhose_search_response
     ]
 }'
 end
+
+def mock_webhose_search_response
+  parsed_response = JSON.parse(webhose_search_response)
+  (parsed_response['posts'] || []).map do |post|
+    Services::Models::Webhose::Search.new(post)
+  end
+end

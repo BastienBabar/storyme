@@ -7,7 +7,7 @@ module Services
         attr_accessor :response, :models
 
         def initialize(response)
-          @response = response
+          @response = response.body
           @models = extract_models
         end
 
