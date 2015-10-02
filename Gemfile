@@ -24,6 +24,10 @@ gem 'httparty'
 gem 'dotenv-rails'
 gem 'thin'
 
+group :assets do
+  gem 'coffee-rails'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
