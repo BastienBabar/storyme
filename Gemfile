@@ -24,6 +24,11 @@ gem 'httparty'
 gem 'dotenv-rails'
 gem 'thin'
 
+group :assets do
+  gem 'therubyracer'
+  gem 'uglifier'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
